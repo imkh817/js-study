@@ -108,4 +108,96 @@ console.log('-----------------------------------');
 
 // join()
 console.log(typeof iveMembers.join()); // string
-console.log(iveMembers.join()); // 그냥 join을 하게되면 ,를 기준으로 모든 값들을 문자열로 반환해준다.
+console.log(iveMembers.join()); // 그냥 join을 하게되면 ,를 기준으로 모든 값들을 문자열로 반환해준다. -> 안유진,레이,리즈,가을,이서,장원영
+console.log(iveMembers.join('/')); // 안유진/레이/리즈/가을/이서/장원영 -> '/'를 기준으로 문자열을 합해서 준다.
+
+// sort()
+// 오름차순으로 정렬된다.
+console.log(iveMembers.sort()); // [ '가을', '레이', '리즈', '안유진', '이서', '장원영' ]
+
+// reverse()
+// 내림차순으로 정렬된다.
+console.log(iveMembers.reverse()); // [ '장원영', '이서', '안유진', '리즈', '레이', '가을' ]
+
+let numbers =[
+  1,
+  3,
+  5,
+  7,
+  9
+];
+console.log(numbers); // [ 1, 3, 5, 7, 9 ]
+console.log('------------------------');
+// 사용자가 임의로 정렬 기준 만들기
+
+
+// a,b를 비교했을 때
+// 1) a를 b보다 나중에 정렬하려면 (뒤에 두려면) 0보다 큰 숫자를 반환
+// 2) a를 b보다 먼저 정렬하려면 (앞에 두려면) 0보다 작은 숫자를 반환
+// 3) 원래 순서를 그대로 두려 0을 반환
+
+// 오름차순
+numbers.sort((a,b) =>{
+    return a>b ? 1 : -1; // a가 b보다 크면 1을 반환, 작으면 -1을 반환 [ 1, 3, 5, 7, 9 ]
+})
+console.log(numbers);
+console.log('------------------------');
+
+// 내림차순
+numbers.sort((a,b) => a>b?-1:1);
+console.log(numbers);
+console.log('------------------------');
+
+// 원래 순서를 그대로 두기
+// 위에서 순서를 [ 9, 7, 5, 3, 1 ]으로 바꿨기 때문에 결과가 [ 9, 7, 5, 3, 1 ] 나온다.
+numbers.sort((a,b) =>   {0});
+console.log(numbers);
+console.log('------------------------');
+
+// map()
+// iveMembers 배열을 직접적으로 변경 X
+// x라는 파라미터에 [ '안유진', '레이', '리즈', '가을', '이서', '장원영' ] 값 하나하나 씩 들어옴, 모든 값을 순회한다.
+// 화살표는 어떻게 변형할건지를 의미, 아래에서는 그대로 x값 반환
+console.log(iveMembers.map(x=>x));
+console.log(iveMembers.sort().map(x=> `아이브 : ${x}`));
+console.log(iveMembers.map(x => {
+    if(x === '이서') return `아이브 : ${x}`;
+    else return x
+}))
+console.log('------------------------');
+
+// filter()
+// numbers 배열을 직접적으로 변경 X
+// 해당하는 모든 값을 반환
+numbers = [1,8,7,6,3];
+console.log(numbers.filter(x=>x%2 === 0)); // [ 8, 6 ]
+console.log('------------------------');
+
+// find()
+// numbers 배열을 직접적으로 변경 X
+// 해당하는 모든 값 중 첫 번째 값을 반환
+console.log(numbers.find(x => x % 2===0)); // 8
+console.log(numbers.find(x => {
+    if(x === 6) return x;
+}))
+console.log('------------------------');
+
+// findIndex()
+// find와 같은데 Index를 반환해준다.
+console.log(numbers.findIndex(x => x % 2===0)); // 8
+console.log('------------------------');
+
+// reduce()
+// reduce(콜백함수(누산기 (acc), 현재 값 (cur), 현재 인덱스 (idx), 원본 배열 (src)),  시작값);
+let result;
+console.log(numbers.reduce((a, b, index) => {
+    if (index === 3) {
+        result = a;
+        return;
+    }
+    return a * b;
+}));
+console.log(result);
+console.log('------------------------');
+
+// 자바스크립트 공식문서 : https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
